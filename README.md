@@ -4,6 +4,12 @@ This is a full-stack E-Commerce web application built with the **MERN stack** (M
 
 ---
 
+## 📹 Demo Video
+
+[Click here to watch the demo video](https://drive.google.com/file/d/1DR0r5BVokC8cVQOa6sZwft9w5F9DJ9S1/view?usp=drive_link)
+
+---
+
 ## 🚀 Features
 
 - 👕 Browse clothing by category: **Men**, **Women**, **Kids**
