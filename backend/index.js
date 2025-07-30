@@ -14,7 +14,10 @@ app.use(cors({
 }));
 
 
-mongoose.connect("mongodb+srv://shashwatgupta:shashwat101010@cluster0.v67xead.mongodb.net/e-commerce")
+const dotenv = require("dotenv");
+dotenv.config();
+const DATABASE_URL = process.env.DATABASE_URL
+mongoose.connect(DATABASE_URL);
 
 
 //Image Storage Engine 
