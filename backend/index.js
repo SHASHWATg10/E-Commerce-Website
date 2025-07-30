@@ -8,7 +8,10 @@ const cors = require("cors");
 const port = process.env.PORT || 4000;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000", "http://localhost:3001"],
+    credentials: true
+}));
 
 
 mongoose.connect("mongodb+srv://shashwatgupta:shashwat101010@cluster0.v67xead.mongodb.net/e-commerce")
