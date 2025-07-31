@@ -9,7 +9,7 @@ const port = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cors({
-    origin: ["https://e-commerce-website-pi-bay.vercel.app/", "http://localhost:3001"],
+    origin: ["https://e-commerce-website-pi-bay.vercel.app", "http://localhost:3001"],
     credentials: true
 }));
 
