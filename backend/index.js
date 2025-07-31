@@ -20,7 +20,7 @@ const DATABASE_URL = process.env.DATABASE_URL
 mongoose.connect(DATABASE_URL);
 
 
-//Image Storage Engine 
+
 const storage = multer.diskStorage({
   destination: './upload/images',
   filename: (req, file, cb) => {
@@ -36,11 +36,10 @@ app.post("/upload", upload.single('product'), (req, res) => {
 })
 
 
-// Route for Images folder
 app.use('/images', express.static('upload/images'));
 
 
-// MiddleWare to fetch user from token
+
 const fetchuser = async (req, res, next) => {
   const token = req.header("auth-token");
   if (!token) {
@@ -56,7 +55,7 @@ const fetchuser = async (req, res, next) => {
 };
 
 
-// Schema for creating user model
+
 const Users = mongoose.model("Users", {
   name: { type: String },
   email: { type: String, unique: true },
@@ -66,7 +65,7 @@ const Users = mongoose.model("Users", {
 });
 
 
-// Schema for creating Product
+
 const Product = mongoose.model("Product", {
   id: { type: Number, required: true },
   name: { type: String, required: true },
@@ -80,13 +79,13 @@ const Product = mongoose.model("Product", {
 });
 
 
-// ROOT API Route For Testing
+
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
 
 
-// Create an endpoint at ip/login for login the user and giving auth-token
+
 app.post('/login', async (req, res) => {
   console.log("Login");
   let success = false;
@@ -114,7 +113,7 @@ app.post('/login', async (req, res) => {
 })
 
 
-//Create an endpoint at ip/auth for regestring the user & sending auth-token
+
 app.post('/signup', async (req, res) => {
   console.log("Sign Up");
   let success = false;
@@ -145,7 +144,6 @@ app.post('/signup', async (req, res) => {
 })
 
 
-// endpoint for getting all products data
 app.get("/allproducts", async (req, res) => {
   let products = await Product.find({});
   console.log("All Products");
@@ -153,7 +151,7 @@ app.get("/allproducts", async (req, res) => {
 });
 
 
-// endpoint for getting latest products data
+
 app.get("/newcollections", async (req, res) => {
   let products = await Product.find({});
   let arr = products.slice(0).slice(-8);
@@ -162,7 +160,7 @@ app.get("/newcollections", async (req, res) => {
 });
 
 
-// endpoint for getting womens products data
+
 app.get("/popularinwomen", async (req, res) => {
   let products = await Product.find({ category: "women" });
   let arr = products.splice(0, 4);
@@ -170,7 +168,7 @@ app.get("/popularinwomen", async (req, res) => {
   res.send(arr);
 });
 
-// endpoint for getting womens products data
+
 app.post("/relatedproducts", async (req, res) => {
   console.log("Related Products");
   const {category} = req.body;
@@ -180,7 +178,7 @@ app.post("/relatedproducts", async (req, res) => {
 });
 
 
-// Create an endpoint for saving the product in cart
+
 app.post('/addtocart', fetchuser, async (req, res) => {
   console.log("Add Cart");
   let userData = await Users.findOne({ _id: req.user.id });
@@ -190,7 +188,7 @@ app.post('/addtocart', fetchuser, async (req, res) => {
 })
 
 
-// Create an endpoint for removing the product in cart
+
 app.post('/removefromcart', fetchuser, async (req, res) => {
   console.log("Remove Cart");
   let userData = await Users.findOne({ _id: req.user.id });
@@ -202,7 +200,7 @@ app.post('/removefromcart', fetchuser, async (req, res) => {
 })
 
 
-// Create an endpoint for getting cartdata of user
+
 app.post('/getcart', fetchuser, async (req, res) => {
   console.log("Get Cart");
   let userData = await Users.findOne({ _id: req.user.id });
@@ -211,7 +209,7 @@ app.post('/getcart', fetchuser, async (req, res) => {
 })
 
 
-// Create an endpoint for adding products using admin panel
+
 app.post("/addproduct", async (req, res) => {
   let products = await Product.find({});
   let id;
@@ -236,14 +234,14 @@ app.post("/addproduct", async (req, res) => {
 });
 
 
-// Create an endpoint for removing products using admin panel
+
 app.post("/removeproduct", async (req, res) => {
   await Product.findOneAndDelete({ id: req.body.id });
   console.log("Removed");
   res.json({ success: true, name: req.body.name })
 });
 
-// Starting Express Server
+
 app.listen(port, (error) => {
   if (!error) console.log("Server Running on port " + port);
   else console.log("Error : ", error);
