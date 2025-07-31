@@ -7,15 +7,16 @@ const path = require("path");
 const cors = require("cors");
 const port = process.env.PORT || 4000;
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 app.use(express.json());
 app.use(cors({
-    origin: ["https://e-commerce-website-pi-bay.vercel.app", "http://localhost:3001"],
+    origin: ["https://e-commerce-website-pi-bay.vercel.app", process.env.ADMIN_URL],
     credentials: true
 }));
 
 
-const dotenv = require("dotenv");
-dotenv.config();
 const DATABASE_URL = process.env.DATABASE_URL
 mongoose.connect(DATABASE_URL);
 
